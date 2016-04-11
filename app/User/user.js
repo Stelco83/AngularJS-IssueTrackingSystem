@@ -4,7 +4,7 @@ angular.module('ITS.user', ['ngRoute'])
 
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider.when('/user', {
-            templateUrl: 'User/user.html',
+            templateUrl: 'user/user.html',
             controller: 'userCtrl'
         });
     }])

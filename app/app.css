@@ -1,6 +1,11 @@
 /* app css stylesheet */
 body{
     margin-top: 60px ;
+    background-color: #e0e0e0;
+}
+
+.border{
+    border: solid 1px #122b40;
 }
 
 .menu {
