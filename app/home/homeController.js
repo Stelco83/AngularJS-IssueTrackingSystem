@@ -10,24 +10,23 @@ angular.module('ITS.homeController', ['ngRoute', 'ITS.user.authentication'])
     }])
 
     .controller('homeController',
-    ['$scope', 'authentication',
-        function ($scope, authentication) {
+    ['$scope', 'authentication', '$location',
+        function ($scope, authentication, $location) {
 
             $scope.login = function (user) {
 
                 authentication.loginUser(user)
-                    .then(function (loggedUser) {
-                        console.log(loggedUser);
-                    })
+                    .then(function (response) {
 
+                        $location.path("/user")
+                    })
             };
-            $scope.genders = ["Male", "Female", "Other"];
 
             $scope.register = function (user) {
 
                 authentication.registerUser(user)
                     .then(function (registeredUser) {
-                        console.log(registeredUser);
+                        $location.path("/user")
                     })
             };
 
@@ -38,3 +37,4 @@ angular.module('ITS.homeController', ['ngRoute', 'ITS.user.authentication'])
 
 
         }]);
+

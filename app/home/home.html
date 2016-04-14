@@ -6,11 +6,11 @@
             <fieldset>
                 <legend style="color: #1b6d85">Login</legend>
                 <div class="form-group">
-                    <label for="loginUsername" class="col-lg-3 control-label">Username</label>
+                    <label for="loginEmail" class="col-lg-3 control-label">Email</label>
 
                     <div class="col-lg-7">
-                        <input class="form-control" required="required" ng-model="loginUser.username" id="loginUsername"
-                               placeholder="Username" type="text">
+                        <input class="form-control" required="required" ng-model="loginUser.email" id="loginEmail"
+                               placeholder="Email" type="email">
                     </div>
                 </div>
                 <div class="form-group">
@@ -26,7 +26,8 @@
 
                 <div class="form-group">
                     <div class="col-lg-7 col-lg-offset-2">
-                        <button  type="submit" class="btn btn-primary" ng-disabled="loginUserForm.$invalid" ng-click="login(loginUser)" >Submit</button>
+                        <button  type="submit" class="btn btn-primary" ng-disabled="loginUserForm.$invalid"
+                                 ng-click="login(loginUser)" >Submit</button>
                         <button type="reset" class="btn btn-default">Cancel</button>
                     </div>
                 </div>
@@ -45,43 +46,7 @@
         <form name="registerUserForm" class="form-horizontal">
             <fieldset>
                 <legend style="color: #1b6d85">Register</legend>
-                <div class="form-group">
-                    <label for="registerUsername" class="col-lg-3 control-label">Username</label>
 
-                    <div class="col-lg-7">
-                        <input class="form-control" required="required" ng-model="registerUser.username" id="registerUsername"
-                               placeholder="Username" type="text">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="registerPassword" class="col-lg-3 control-label">Password</label>
-
-                    <div class="col-lg-7">
-                        <input class="form-control" ng-model="registerUser.password"
-                               required="required"  minlength="6" maxlength="100"
-                               id="registerPassword"
-                               placeholder="Password" type="password">
-
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="confirmPassword" class="col-lg-3 control-label">Confirm Password</label>
-
-                    <div class="col-lg-7">
-                        <input class="form-control" ng-model="registerUser.confirmPassowrd"
-                               required="required"  minlength="6" maxlength="100"
-                               id="confirmPassword"
-                               placeholder="Confirm Password" type="password">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="registerName" class="col-lg-3 control-label">Name</label>
-
-                    <div class="col-lg-7">
-                        <input class="form-control" ng-model="registerUser.name" id="registerName" placeholder="Name"
-                               type="text">
-                    </div>
-                </div>
                 <div class="form-group">
                     <label for="registerEmail" class="col-lg-3 control-label">Email</label>
 
@@ -92,22 +57,31 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="select" class="col-lg-3 control-label">Selects</label>
-
+                    <label for="registerPassword" class="col-lg-3 control-label">Password</label>
                     <div class="col-lg-7">
-                        <select  ng-model="registerUser.gender" class="form-control" id="select"
-                                ng-options="gender for gender in genders">
-                        </select>
-                        <br>
-
+                        <input class="form-control" ng-model="registerUser.password"
+                               required="required"  minlength="6" maxlength="100"
+                               id="registerPassword"
+                               placeholder="Password" type="password">
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword" class="col-lg-3 control-label">Confirm Password</label>
+                    <div class="col-lg-7">
+                        <input class="form-control" ng-model="registerUser.confirmPassword"
+                               required="required"  minlength="6" maxlength="100"
+                               id="confirmPassword"
+                               placeholder="Confirm Password" type="password">
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <div class="col-lg-7 col-lg-offset-2">
                         <button type="submit" class="btn btn-primary"
-                                ng-disabled="registerUserForm.$invalid ||
-                                 registerUser.password != registerUser.confirmPassowrd"
-                                ng-click="register(registerUser)">Submit</button>
+                                ng-click="register(registerUser)"
+                                ng-disabled="registerUserForm.$invalid
+                                || registerUser.password!= registerUser.confirmPassword">Submit</button>
                         <button type="reset" class="btn btn-default">Cancel</button>
                     </div>
                 </div>

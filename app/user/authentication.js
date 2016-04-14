@@ -6,44 +6,73 @@ angular.module('ITS.user.authentication', ['ngRoute'])
         '$http',
         '$q',
         'BASE_URL',
+
         function ($http, $q, BASE_URL) {
 
-        function registerUser(user) {
-            var deferred = $q.defer();
-            $http.post(BASE_URL + 'users/Register', user)
-                .then(function (response) {
-                    deferred.resolve(response.data)
-                }, function (error) {
+            var isLogged = false;
 
+            function registerUser(user) {
+
+                var deferred = $q.defer();
+                var email = user.email;
+                var password = user.password;
+
+                $http.post(BASE_URL + 'Account/Register', user)
+                    .then(function (success) {
+                        $http.post(BASE_URL + 'token', "userName=" + encodeURIComponent(email) +
+                            "&password=" + encodeURIComponent(password) +
+                            "&grant_type=password" );
+                        deferred.resolve()
+
+                    }, function (error) {
+
+
+                    });
+
+
+                return deferred.promise;
+            }
+
+            function loginUser(user) {
+
+                var deferred = $q.defer();
+
+                var email = user.email;
+                var password = user.password;
+
+               $http.post(BASE_URL + 'token',
+                        "userName=" + encodeURIComponent(email) +
+                    "&password=" + encodeURIComponent(password) +
+                    "&grant_type=password" )
+                    .then(function (success) {
+
+                        deferred.resolve(success.data);
+
+                        isLogged = true;
+
+                    } , function (error) {
+                        isLogged = false;
 
                 });
 
 
-            return deferred.promise;
-        }
+                return deferred.promise;
 
-        function loginUser(user) {
+            }
 
-            var deferred = $q.defer();
-            $http.post(BASE_URL + 'users/Login', user)
-                .then(function (response) {
-                    deferred.resolve(response.data)
-                }, function (error) {
+            function isLoggedIn () {
+               return  isLogged
 
+            }
 
-                });
+            function logout() {
 
-            return deferred.promise;
+            }
 
-        }
-
-        function logout() {
-
-        }
-
-        return{
-            registerUser: registerUser,
-            loginUser: loginUser,
-            logout: logout
-        }
-    }]);
+            return{
+                registerUser: registerUser,
+                loginUser: loginUser,
+                logout: logout,
+                isLoggedIn : isLoggedIn
+            }
+        }]);
