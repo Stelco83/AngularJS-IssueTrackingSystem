@@ -10,8 +10,8 @@ angular.module('ITS.homeController', ['ngRoute', 'ITS.user.authentication'])
     }])
 
     .controller('homeController',
-    ['$scope', 'authentication', '$location',
-        function ($scope, authentication, $location) {
+    ['$scope', 'authentication', '$location','notifyService',
+        function ($scope, authentication, $location, notifyService) {
 
             $scope.login = function (user) {
 
@@ -30,9 +30,9 @@ angular.module('ITS.homeController', ['ngRoute', 'ITS.user.authentication'])
                     })
             };
 
-            $scope.logout = function logout() {
-                authentication.logout();
 
+            $scope.logout = function() {
+                authentication.logout();
             };
 
 
