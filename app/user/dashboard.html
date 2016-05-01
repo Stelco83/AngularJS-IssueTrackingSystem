@@ -1,1 +1,8 @@
-<h1>Hello</h1>
+<div ng-if="authentication.isNormalUser()" >
+    <h2>Normal user</h2>
+</div>
+
+
+<div ng-if="authentication.isAdmin()" >
+    <h2>Admin user</h2>
+</div>

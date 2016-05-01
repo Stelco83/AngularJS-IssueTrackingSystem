@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ITS.dashboard', ['ngRoute'])
+angular.module('ITS.dashboardController', ['ngRoute'])
 
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider.when('/dashboard', {

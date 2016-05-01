@@ -64,8 +64,19 @@ angular.module('ITS.user.authentication', ['ngRoute'])
                         currentUser = response.data;
                         preserveUserData(response.data);
                         deferred.resolve(response.data);
-
                         notifyService.showInfo("Login successful.");
+
+                        $http.defaults.headers.common.Authorization = 'bearer ' + accessToken;
+                        $http.get(BASE_URL + 'users/me')
+                            .then(function (response) {
+                                currentUser = response.data;
+                                deferred.resolve(response);
+
+                                console.log(currentUser);
+                            }, function (error) {
+
+
+                            });
 
                     }, function (error) {
                         notifyService.showError("Invalid login", error);
@@ -101,7 +112,7 @@ angular.module('ITS.user.authentication', ['ngRoute'])
 
             function isNormalUser() {
                 return (currentUser != undefined) && (!currentUser.isAdmin)
-                    && (!currentUser.isProjectLeader)
+
             }
 
             function isAdmin() {
@@ -119,7 +130,6 @@ angular.module('ITS.user.authentication', ['ngRoute'])
                 $http.defaults.headers.common.Authorization = 'bearer ' + accessToken;
                 $http.get(BASE_URL + 'users/')
                     .then(function (response) {
-
                         deferred.resolve(response);
 
                     }, function (error) {
@@ -129,6 +139,8 @@ angular.module('ITS.user.authentication', ['ngRoute'])
 
                 return deferred.promise;
             }
+
+
 
 
             return{

@@ -12,6 +12,11 @@ angular.module('ITS.homeController', ['ngRoute', 'ITS.user.authentication'])
     .controller('homeController',
     ['$scope', 'authentication', '$location',
         function ($scope, authentication, $location) {
+            if(authentication.isAuthenticated()){
+                $location.path('/dashboard')
+            }
+
+            $scope.authentication = authentication;
 
             $scope.login = function (user) {
 
@@ -45,7 +50,8 @@ angular.module('ITS.homeController', ['ngRoute', 'ITS.user.authentication'])
                     .then(function (response) {
 
                     })
-            }
+            };
+
 
         }]);
 

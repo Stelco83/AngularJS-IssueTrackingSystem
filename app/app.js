@@ -3,7 +3,7 @@
 // Declare app level module which depends on views, and components
 angular.module('ITS', [
     'ngRoute',
-    'ITS.dashboard',
+    'ITS.dashboardController',
     'ITS.homeController',
     'ITS.version',
     'ITS.notifyService',
