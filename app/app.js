@@ -3,7 +3,7 @@
 // Declare app level module which depends on views, and components
 angular.module('ITS', [
     'ngRoute',
-    'ITS.user',
+    'ITS.dashboard',
     'ITS.homeController',
     'ITS.version',
     'ITS.notifyService',
@@ -13,7 +13,7 @@ angular.module('ITS', [
         $routeProvider.otherwise({redirectTo: '/home'});
     }])
 
-    .constant('BASE_URL', 'http://softuni-issue-tracker.azurewebsites.net/api/')
+    .constant('BASE_URL', 'http://softuni-issue-tracker.azurewebsites.net/')
 
 
     .run(['$rootScope' ,'$location','authentication','$cookies','$http',

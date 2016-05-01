@@ -10,31 +10,42 @@ angular.module('ITS.homeController', ['ngRoute', 'ITS.user.authentication'])
     }])
 
     .controller('homeController',
-    ['$scope', 'authentication', '$location','notifyService',
-        function ($scope, authentication, $location, notifyService) {
+    ['$scope', 'authentication', '$location',
+        function ($scope, authentication, $location) {
 
             $scope.login = function (user) {
 
                 authentication.loginUser(user)
-                    .then(function (response) {
-
-                        $location.path("/user")
+                    .then(function () {
+                        $location.path("/dashboard")
                     })
             };
 
             $scope.register = function (user) {
 
                 authentication.registerUser(user)
-                    .then(function (registeredUser) {
-                        $location.path("/user")
+                    .then(function () {
+                        authentication.loginUser(user)
+                            .then(function () {
+                                $location.path("/dashboard")
+                            })
+
                     })
             };
 
 
             $scope.logout = function() {
                 authentication.logout();
+                $location.path("/")
             };
 
+
+            $scope.getUsers = function () {
+                authentication.getAllUsers()
+                    .then(function (response) {
+
+                    })
+            }
 
         }]);
 
