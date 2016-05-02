@@ -65,18 +65,8 @@ angular.module('ITS.user.authentication', ['ngRoute'])
                         preserveUserData(response.data);
                         deferred.resolve(response.data);
                         notifyService.showInfo("Login successful.");
+                        getCurrentUser();
 
-                        $http.defaults.headers.common.Authorization = 'bearer ' + accessToken;
-                        $http.get(BASE_URL + 'users/me')
-                            .then(function (response) {
-                                currentUser = response.data;
-                                deferred.resolve(response);
-
-                                console.log(currentUser);
-                            }, function (error) {
-
-
-                            });
 
                     }, function (error) {
                         notifyService.showError("Invalid login", error);
@@ -99,9 +89,26 @@ angular.module('ITS.user.authentication', ['ngRoute'])
             function refreshCookie() {
                 if (isAuthenticated()) {
                     $http.defaults.headers.common.Authorization =
-                        $cookies.get(AUTHENTICATION_COOKIE_KEY);
+                      'bearer ' + $cookies.get(AUTHENTICATION_COOKIE_KEY) ;
+                    getCurrentUser();
                 }
 
+            }
+
+            function getCurrentUser() {
+                var deferred = $q.defer();
+
+
+                $http.get(BASE_URL + 'users/me')
+                    .then(function (response) {
+
+                        currentUser = response.data;
+                        deferred.resolve(response.data);
+                    }, function (error) {
+
+                    });
+
+                return deferred.promise;
             }
 
             function isAuthenticated() {
@@ -141,8 +148,6 @@ angular.module('ITS.user.authentication', ['ngRoute'])
             }
 
 
-
-
             return{
                 registerUser: registerUser,
                 loginUser: loginUser,
@@ -152,6 +157,7 @@ angular.module('ITS.user.authentication', ['ngRoute'])
                 isNormalUser: isNormalUser,
                 isAdmin: isAdmin,
                 isProjectLeader: isProjectLeader,
-                getAllUsers: getAllUsers
+                getAllUsers: getAllUsers,
+                getCurrentUser : getCurrentUser
             }
         }]);

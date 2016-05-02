@@ -20,6 +20,7 @@ angular.module('ITS', [
         function ($rootScope, $location, authentication) {
         $rootScope.$on('$locationChangeStart', function (event) {
              authentication.refreshCookie();
+
             if (!authentication.isAuthenticated()) {
                 // Authorization check: anonymous site visitors cannot access user routes
                 $location.path("/home");

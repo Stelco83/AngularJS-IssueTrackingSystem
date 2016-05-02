@@ -4,6 +4,11 @@ body{
     background-color: #e0e0e0;
 }
 
+th{
+    color: #b2dba1;
+    font-size: 20px;
+}
+
 .border{
     border: solid 1px #122b40;
 }
