@@ -67,7 +67,6 @@ angular.module('ITS.user.authentication', ['ngRoute'])
                         notifyService.showInfo("Login successful.");
                         getCurrentUser();
 
-
                     }, function (error) {
                         notifyService.showError("Invalid login", error);
                     });
@@ -95,6 +94,11 @@ angular.module('ITS.user.authentication', ['ngRoute'])
 
             }
 
+            function getUserName() {
+                return currentUser;
+            }
+
+
             function getCurrentUser() {
                 var deferred = $q.defer();
 
@@ -104,6 +108,7 @@ angular.module('ITS.user.authentication', ['ngRoute'])
 
                         currentUser = response.data;
                         deferred.resolve(response.data);
+
                     }, function (error) {
 
                     });
@@ -114,6 +119,16 @@ angular.module('ITS.user.authentication', ['ngRoute'])
             function isAuthenticated() {
                 return !!$cookies.get(AUTHENTICATION_COOKIE_KEY);
 
+            }
+
+          function getAuthHeaders () {
+              currentUser = this.getCurrentUser();
+                var headers = {};
+                if (currentUser) {
+                    headers['Authorization'] = 'Bearer '+ $cookies.get(AUTHENTICATION_COOKIE_KEY)
+
+                }
+                return headers;
             }
 
 
@@ -158,6 +173,9 @@ angular.module('ITS.user.authentication', ['ngRoute'])
                 isAdmin: isAdmin,
                 isProjectLeader: isProjectLeader,
                 getAllUsers: getAllUsers,
-                getCurrentUser : getCurrentUser
+                getCurrentUser : getCurrentUser,
+                preserveUserData : preserveUserData,
+                getUserName : getUserName,
+                getAuthHeaders : getAuthHeaders
             }
         }]);

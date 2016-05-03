@@ -1,0 +1,8 @@
+<div ng-if="authentication.isAuthenticated">
+    <span style="color: #ffffff">
+        <strong>
+          Hello  {{authentication.getUserName().Username}}
+        </strong>
+    </span>
+        <button class="btn-success" ng-click="logout()">Logout</button>
+</div>
