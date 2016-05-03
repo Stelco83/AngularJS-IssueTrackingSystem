@@ -1,83 +1,84 @@
-<div ng-if="authentication.isNormalUser()" >
+<div ng-controller="issuesController">
 
-    <div class="col-lg-12">
-        <div class="page-header">
-            <h1 id="tables" style="color: #ffffff">Dashboard</h1>
+
+    <!--<!--*********************** DashBoard for NormalUser*********************   -->
+    <button class="btn-success" ng-click="getUserIssues()">Show my issues</button>
+
+    <div ng-if="authentication.isNormalUser()">
+
+        <div class="col-lg-12">
+            <div class="page-header">
+                <h1 id="tables" style="color: #ffffff">Dashboard Normal User</h1>
+            </div>
+
+            <div class="bs-component">
+                <table class="table table-striped table-hover ">
+                    <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Project</th>
+                        <th>Due Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="info" ng-repeat=" issue in userIssues |orderBy:'-DueDate'">
+
+                        <td>{{issue.Title}}</td>
+
+                        <td>{{issue.Description}}</td>
+
+                        <td>{{issue.Project.Name}}</td>
+
+                        <td>{{issue.DueDate| date:'dd-MM-yyyy'}}</td>
+
+                    </tbody>
+                </table>
+                </table>
+                <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div>
+            </div>
         </div>
-
-        <div class="bs-component">
-            <table class="table table-striped table-hover ">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Project</th>
-                    <th>Due Date</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="info">
-                    <td>1</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                </tr>
-                <tr class="info">
-                    <td>2</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                </tr>
-                <tr class="info">
-                    <td>3</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                </tr>
-                <tr class="success">
-                    <td>4</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                </tr>
-                <tr class="danger">
-                    <td>5</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                </tr>
-                <tr class="warning">
-                    <td>6</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                </tr>
-                <tr class="active">
-                    <td>7</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                </tr>
-                </tbody>
-            </table>
-            <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div></div><!-- /example -->
     </div>
-</div>
+
+
+    <!--<!--*********************** DashBoard for Admin*********************   -->
+
+    <div ng-if="authentication.isAdmin()">
+
+        <div class="col-lg-12">
+            <div class="page-header">
+                <h1 id="tables" style="color: #ffffff">Dashboard Admin</h1>
+            </div>
+
+            <div class="bs-component">
+                <table class="table table-striped table-hover ">
+                    <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Project</th>
+                        <th>Due Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="info" ng-repeat=" issue in userIssues |orderBy:'-DueDate'">
+
+                        <td>{{issue.Title}}</td>
+
+                        <td>{{issue.Description}}</td>
+
+                        <td>{{issue.Project.Name}}</td>
+
+                        <td>{{issue.DueDate| date:'dd-MM-yyyy'}}</td>
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
 
 
 
- <!--*********************** DashBoard for Admin**************************            -->
-
-
-        
-<div ng-if="authentication.isAdmin()" >
-    <h2>Admin user</h2>
+    <div ng-if="allIssues == 0"><h3 class="text-center">NO ISSUES RIGHT NOW</h3></div>
 </div>

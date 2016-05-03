@@ -37,33 +37,19 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
             <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Themes <span
-                            class="caret"></span></a>
-                    <ul class="dropdown-menu" aria-labelledby="themes">
-                        <li><a href="../default/">Default</a></li>
-                        <li class="divider"></li>
-                        <li><a href="../cerulean/">Cerulean</a></li>
-                        <li><a href="../cosmo/">Cosmo</a></li>
-                        <li><a href="../cyborg/">Cyborg</a></li>
-                    </ul>
-                </li>
                 <li>
-                    <a href="#/dashboard">Dashboard</a>
+                    <a href="#/dashboard"  style="color: #ffffff">Dashboard</a>
                 </li>
-
             </ul>
 
-            <ul class="nav navbar-nav navbar-right">
-                <a href="#" ng-click="logout()">Logout</a>
+            <ul ng-if="authentication.isAuthenticated()"
+                ng-include="'home/header.html'" class="nav navbar-nav navbar-right">
+
             </ul>
 
         </div>
     </div>
 </div>
-
-
-
 
 
 <div class="container">
@@ -81,6 +67,7 @@
 <script src="bower_components/angular-route/angular-route.js"></script>
 <script src="bower_components/noty/jquery.noty.js"></script>
 <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+<script src="bower_components/angular/angular-resourse.js"></script>
 
 
 <script src="services/notifyService.js"></script>
@@ -89,14 +76,17 @@
 <script src="app.js"></script>
 <script src="user/dashboard.js"></script>
 <script src="services/authentication.js"></script>
+<script src="services/issueService.js"></script>
 
 
-<script src="home/homeController.js"></script>
+<script src="controllers/homeController.js"></script>
+<script src="controllers/issuesController.js"></script>
 
 
 <script src="components/version/version.js"></script>
 <script src="components/version/version-directive.js"></script>
 <script src="components/version/interpolate-filter.js"></script>
+<script src="bower_components/bootstrap/ui-bootstrap/ui.bootstrap.pagination-0.12.0.js"></script>
 
 </body>
 </html>
