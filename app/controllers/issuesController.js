@@ -34,7 +34,13 @@ angular.module('ITS.issuesController',
                     }
                 );
             };
+        
+            $scope.getUsers = function () {
+                authentication.getAllUsers()
+                    .then(function () {
 
+                    })
+            }
 
         }]);
 

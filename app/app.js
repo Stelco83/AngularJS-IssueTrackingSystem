@@ -18,7 +18,7 @@ angular.module('ITS', [
     }])
 
     .constant('BASE_URL', 'http://softuni-issue-tracker.azurewebsites.net/')
-    .constant('pageSize', 5)
+    .constant('pageSize', 9)
 
     .run(['$rootScope' ,'$location','authentication','$cookies','$http',
         function ($rootScope, $location, authentication) {

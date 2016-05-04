@@ -16,7 +16,8 @@ angular.module('ITS.homeController',
 
         function ($scope, authentication, $location, issueService) {
             if (authentication.isAuthenticated()) {
-                $location.path('/dashboard');
+              //  $location.path('/dashboard')
+
             }
 
             $scope.authentication = authentication;
@@ -46,14 +47,6 @@ angular.module('ITS.homeController',
             $scope.logout = function () {
                 authentication.logout();
                 $location.path("/")
-            };
-
-
-            $scope.getUsers = function () {
-                authentication.getAllUsers()
-                    .then(function (response) {
-
-                    })
             };
 
 

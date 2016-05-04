@@ -149,10 +149,12 @@ angular.module('ITS.user.authentication', ['ngRoute'])
 
             function getAllUsers() {
                 var deferred = $q.defer();
-                $http.defaults.headers.common.Authorization = 'bearer ' + accessToken;
+                this.getAuthHeaders();
                 $http.get(BASE_URL + 'users/')
                     .then(function (response) {
+
                         deferred.resolve(response);
+                        console.log(response.data);
 
                     }, function (error) {
 

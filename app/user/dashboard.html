@@ -78,7 +78,19 @@
         </div>
     </div>
 
+    <div ng-if="authentication.isAdmin()">
+        <a class="btn btn-lg btn-success" href="#/projects" >View All Projects</a>
+        <a class="btn btn-lg btn-success" href="#/projects/add">Add New Project</a>
+        <a class="btn btn-lg btn-success" href="#/projects/add-issue">Add New Issue</a>
+    </div>
 
+
+    <pagination ng-if="allIssues > projectParams.pageSize"
+                total-items="allIssues" ng-model="projectParams.startPage"
+                items-per-page="projectParams.pageSize" ng-change="getUserIssues()"
+                max-size="9" boundary-links="true"
+                class="aligner">
+    </pagination>
 
     <div ng-if="allIssues == 0"><h3 class="text-center">NO ISSUES RIGHT NOW</h3></div>
 </div>
