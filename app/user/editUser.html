@@ -1,0 +1,63 @@
+
+<div ng-controller="homeController" ng-if="authentication.isAuthenticated()">
+    <div class="col-lg-6 col-lg-offset-3">
+        <div class="well bs-component" style="background-color:#a1a1a1">
+            <form name="loginUserForm" class="form-horizontal">
+                <fieldset>
+                    <legend>Change password</legend>
+                    <div class="form-group">
+                        <label for="loginEmail" class="col-lg-3 control-label">Email</label>
+
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control" id="loginEmail"
+                                   placeholder="{{authentication.getUserName().Username}}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="OldLoginPassword" class="col-lg-3 control-label">Old Password</label>
+
+                        <div class="col-lg-7">
+                            <input class="form-control" required="required"
+                                   minlength="6" maxlength="100"
+                                   id="OldLoginPassword"
+                                   ng-model="userPassword.oldPassword"
+                                   placeholder="Old Password" type="password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="NewLoginPassword" class="col-lg-3 control-label">New Password</label>
+
+                        <div class="col-lg-7">
+                            <input class="form-control" required="required"
+                                   minlength="6" maxlength="100"
+                                   id="NewLoginPassword"
+                                   ng-model="userPassword.newPassword"
+                                   placeholder="New Password" type="password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ConfirmLoginPassword" class="col-lg-3 control-label">Confirm Password</label>
+
+                        <div class="col-lg-7">
+                            <input class="form-control" required="required"
+                                   minlength="6" maxlength="100"
+                                   id="ConfirmLoginPassword"
+                                   ng-model="userPassword.confirmPassword"
+                                   placeholder="Confirm Password" type="password">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-7 col-lg-offset-2">
+                            <button type="submit" class="btn btn-primary" ng-disabled="loginUserForm.$invalid"
+                                    ng-click="newPassword(userPassword)">Submit
+                            </button>
+                            <button type="reset" class="btn btn-default">Cancel</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+
+        </div>
+    </div>
+</div>

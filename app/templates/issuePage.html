@@ -1,0 +1,132 @@
+<div class="col-xs-6">
+
+    <div class="table-responsive" style="max-height:300px"  >
+        <table class="table table-striped">
+            <tr class="info">
+                <th>issue Title</th>
+                <td>{{issueData.Title}}</td>
+            </tr>
+            <tr class="active">
+                <th>Project</th>
+                <td>{{issueData.Project.Name}}</td>
+            </tr>
+            <tr class="info">
+                <th>Project Leader</th>
+                <td>{{issueData.projectLeaderName}}</td>
+            </tr>
+            <tr class="active">
+                <th>Description</th>
+                <td>{{issueData.Description}}</td>
+            </tr>
+            <tr class="info">
+                <th>Assignee</th>
+                <td>{{issueData.Assignee.Username}}</td>
+            </tr>
+            <tr class="active">
+                <th>Assignee Id</th>
+                <td>{{issueData.Assignee.Id}}</td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+
+
+<div class="col-xs-6">
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+
+            <tr class="info">
+                <th>Priority</th>
+                <td>{{issueData.Priority.Name}}</td>
+            </tr>
+            <tr class="active">
+                <th>Priority Id</th>
+                <td>{{issueData.Priority.Id}}</td>
+            </tr>
+            <tr class="info">
+                <th>Due Date</th>
+                <td>{{issueData.DueDate| date:'dd-MM-yyyy'}}</td>
+            </tr>
+            <tr class="active">
+                <th>Status</th>
+                <td>{{issueData.Status.Name}}</td>
+            </tr>
+            <tr class="info">
+                <th>Author</th>
+                <td>{{issueData.Author.Username}}</td>
+            </tr>
+            <tr class="active">
+                <th>Labels</th>
+                <td><span ng-repeat="label in issueData.Labels">{{label.Name}}; </span></td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+
+<div ng-if="issueData.projectLeaderName === authentication.getUserName().Username||
+    authentication.isAdmin()"
+     class="info">
+    <a href="#issueDatas/{{issueData.Id}}/edit" class="btn btn-success btn-sm" id="editIssueDataButton">Edit
+        issueData</a>
+</div>
+
+
+<div class="col-lg-9 col-lg-offset-1"
+     ng-if="issueData.Assignee.Username === authentication.getUserName().Username||
+     issueData.projectLeaderName === authentication.getUserName().Username||
+     authentication.isAdmin()">
+    <table class="table table-striped">
+        <h3>Available statuses</h3>
+        <tr ng-repeat="status in  issueData.AvailableStatuses">
+            <td class="info">
+                {{status.Name}}
+                <button class="btn btn-primary btn-sm changeStatus"
+                        ng-click="changeStatus(issueData.Id, status.Id, status.Name)">Change
+                </button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div  style="overflow: scroll; color: white; max-height:200px " class="col-lg-5 col-lg-offset-1">
+    <h2>Comments:</h2>
+
+    <div ng-repeat="comment in  issueDataComment">
+        <h3 >{{comment.Author.Username}}</h3>
+        <span>{{comment.CreatedOn| date:'dd-MM-yyyy'}}:</span>
+
+
+        <div>{{comment.Text}}</div>
+
+    </div>
+</div>
+
+<div class="col-lg-4 col-lg-offset-1"
+     ng-if="issueData.Assignee.Username === authentication.getUserName().Username||
+     issueData.projectLeaderName === authentication.getUserName().Username||
+     authentication.isAdmin()">
+    <form class="form-horizontal" name="add-comment-form" id="add-comment-form">
+        <div class="form-group">
+            <div>
+                <textarea class="form-control"
+                          id="issueDataComment"
+                          ng-model="issueDataComment.Text" required>
+                </textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-7">
+                <button class="btn btn-primary btn-sm"
+                        id="addCommentButton"
+                        ng-click="addComment(issueData.Id, issueDataComment)">Add Comment
+                </button>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+

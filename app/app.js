@@ -5,6 +5,7 @@ angular.module('ITS', [
     'ngRoute',
     'ngResource',
     'ITS.dashboardController',
+    'ITS.editUserController',
     'ITS.homeController',
     'ITS.issuesController',
     'ITS.version',

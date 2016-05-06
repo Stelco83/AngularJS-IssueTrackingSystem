@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ITS.homeController',
-    ['ngRoute', 'ITS.user.authentication','ITS.user.issueService']
+    ['ngRoute', 'ITS.user.authentication', 'ITS.user.issueService']
 )
 
     .config(['$routeProvider', function ($routeProvider) {
@@ -12,11 +12,11 @@ angular.module('ITS.homeController',
     }])
 
     .controller('homeController',
-    ['$scope', 'authentication', '$location','issueService',
+    ['$scope', 'authentication', '$location', 'issueService',
 
         function ($scope, authentication, $location, issueService) {
             if (authentication.isAuthenticated()) {
-              //  $location.path('/dashboard')
+                //  $location.path('/dashboard')
 
             }
 
@@ -42,6 +42,7 @@ angular.module('ITS.homeController',
 
                     })
             };
+
 
 
             $scope.logout = function () {

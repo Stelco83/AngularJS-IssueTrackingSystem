@@ -6,20 +6,27 @@ angular.module('ITS.issuesController',
 
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/dashboard', {
-            templateUrl: 'user/dashboard.html',
+            templateUrl: 'templates/dashboard.html',
+            controller: 'issuesController'
+        });
+
+        $routeProvider.when('/issues/:id', {
+            templateUrl: 'templates/issuePage.html',
             controller: 'issuesController'
         });
     }])
 
     .controller('issuesController',
     ['$scope', 'authentication',
-        '$location', 'notifyService', 'issueService','pageSize',
+        '$location', 'notifyService', 'issueService', 'pageSize','$routeParams',
 
-        function ($scope, authentication, $location,notifyService ,issueService,pageSize) {
+        function ($scope, authentication, $location, notifyService,
+        issueService, pageSize, $routeParams) {
 
             $scope.projectParams = {
                 'startPage': 1,
                 'pageSize': pageSize
+
             };
 
             $scope.getUserIssues = function () {
@@ -34,12 +41,41 @@ angular.module('ITS.issuesController',
                     }
                 );
             };
-        
+
+            issueService.getIssueById($routeParams.id,
+                function success(data) {
+                    $scope.issueData = data;
+
+                },
+                function error(err) {
+                    notifyService.showError("Issue loading failed", err);
+                }
+            );
+
+
+
+            issueService.getCommentsById($routeParams.id,
+                function success(data) {
+                    $scope.issueDataComment = data;
+                    $scope.allComments = data.length;
+
+
+                },
+                function error(err) {
+                    notifyService.showError("Comments loading failed", err);
+                }
+            );
+
+
             $scope.getUsers = function () {
                 authentication.getAllUsers()
                     .then(function () {
 
                     })
+            };
+
+            $scope.hideIssues = function () {
+                $(".info").hide();
             }
 
         }]);

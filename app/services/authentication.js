@@ -8,8 +8,9 @@ angular.module('ITS.user.authentication', ['ngRoute'])
         'BASE_URL',
         'notifyService',
         '$cookies',
+        '$location',
 
-        function ($http, $q, BASE_URL, notifyService, $cookies) {
+        function ($http, $q, BASE_URL, notifyService, $cookies,$location) {
 
             var AUTHENTICATION_COOKIE_KEY = '-!!Auth.cookie.key!!-';
             var currentUser;
@@ -76,6 +77,25 @@ angular.module('ITS.user.authentication', ['ngRoute'])
 
             }
 
+            function changePassword(userPassword) {
+                var deferred = $q.defer();
+
+                $http.post(BASE_URL + 'api/Account/ChangePassword', userPassword)
+                    .then(function (response) {
+                        currentUser = response.data;
+
+                        deferred.resolve(response.data);
+                        notifyService.showInfo("Password changed successful.");
+                        $location.path('/dashboard')
+
+                    }, function (error) {
+                        notifyService.showError("Invalid change", error);
+                    });
+
+
+                return deferred.promise;
+            }
+
             function logout() {
                 $cookies.remove(AUTHENTICATION_COOKIE_KEY);
                 if ($http.defaults.headers.common.Authorization != undefined) {
@@ -95,7 +115,8 @@ angular.module('ITS.user.authentication', ['ngRoute'])
             }
 
             function getUserName() {
-                return currentUser;
+               return currentUser;
+
             }
 
 
@@ -178,6 +199,7 @@ angular.module('ITS.user.authentication', ['ngRoute'])
                 getCurrentUser : getCurrentUser,
                 preserveUserData : preserveUserData,
                 getUserName : getUserName,
-                getAuthHeaders : getAuthHeaders
+                getAuthHeaders : getAuthHeaders,
+                changePassword:changePassword
             }
         }]);

@@ -38,9 +38,13 @@
         <div class="navbar-collapse collapse" id="navbar-main">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="#/dashboard"  style="color: #ffffff">Dashboard</a>
+                    <a href="#/dashboard" style="color: #ffffff">Dashboard</a>
                 </li>
             </ul>
+
+            <a href="#/editUser" ng-if="authentication.isAuthenticated()"
+               class="nav navbar-nav navbar-right"><p>Edit Profile</p>
+            </a>
 
             <ul ng-if="authentication.isAuthenticated()"
                 ng-include="'home/header.html'" class="nav navbar-nav navbar-right">
@@ -73,13 +77,17 @@
 
 
 <script src="app.js"></script>
-<script src="user/dashboard.js"></script>
+
 <script src="services/authentication.js"></script>
 <script src="services/issueService.js"></script>
 
 
+
 <script src="controllers/homeController.js"></script>
 <script src="controllers/issuesController.js"></script>
+<script src="user/dashboard.js"></script>
+<script src="controllers/editUserController.js"></script>
+
 
 
 <script src="components/version/version.js"></script>
