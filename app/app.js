@@ -8,6 +8,7 @@ angular.module('ITS', [
     'ITS.editUserController',
     'ITS.homeController',
     'ITS.issuesController',
+    'ITS.projectController',
     'ITS.version',
     'ITS.notifyService',
     'ngCookies',
@@ -30,7 +31,6 @@ angular.module('ITS', [
                 // Authorization check: anonymous site visitors cannot access user routes
                 $location.path("/home");
             }
-
 
         });
     }]);

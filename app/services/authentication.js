@@ -168,23 +168,6 @@ angular.module('ITS.user.authentication', ['ngRoute'])
 
             }
 
-            function getAllUsers() {
-                var deferred = $q.defer();
-                this.getAuthHeaders();
-                $http.get(BASE_URL + 'users/')
-                    .then(function (response) {
-
-                        deferred.resolve(response);
-                        console.log(response.data);
-
-                    }, function (error) {
-
-
-                    });
-
-                return deferred.promise;
-            }
-
 
             return{
                 registerUser: registerUser,
@@ -195,7 +178,6 @@ angular.module('ITS.user.authentication', ['ngRoute'])
                 isNormalUser: isNormalUser,
                 isAdmin: isAdmin,
                 isProjectLeader: isProjectLeader,
-                getAllUsers: getAllUsers,
                 getCurrentUser : getCurrentUser,
                 preserveUserData : preserveUserData,
                 getUserName : getUserName,

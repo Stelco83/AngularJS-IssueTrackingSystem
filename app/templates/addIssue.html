@@ -1,0 +1,110 @@
+
+    <div class="col-lg-8"
+         ng-if="authentication.isAdmin()||
+     projectData.Lead.Username === authentication.getUserName().userName">
+        <div class="well bs-component">
+            <form class="form-horizontal" name="change-password" id="add-project-form">
+                <legend>Add new Issue</legend>
+                <div class="form-group">
+                    <label for="issueTitle" class="col-lg-4 control-label">Title</label>
+
+                    <div class="col-lg-8">
+                        <input type="text"
+                               class="form-control"
+                               id="issueTitle"
+                               placeholder="Issue Title"
+                               ng-model="issueData.Title" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="issueAssignee" class="col-lg-4 control-label">Assignee</label>
+
+                    <div class="col-lg-8">
+                        <select id="issueAssignee"
+                                class="form-control"
+                                ng-model="issueData.AssigneeId" required>
+                            <option ng-repeat="user in allUsers" value="{{user.Id}}">
+                                {{user.Username}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="issueProject" class="col-lg-4 control-label">Project</label>
+
+                    <div class="col-lg-8">
+                        <select id="issueProject"
+                                class="form-control"
+                                ng-model="issueData.ProjectId"
+                                ng-change="newProjectSelected(issueData.ProjectId)"
+                                required>
+                            <option ng-if="authentication.isAdmin()"
+                                    ng-repeat="project in allProjects" value="{{project.Id}}">
+                                {{project.Name}}
+                            </option>
+                            <optgroup ng-if="!authentication.isAdmin()" label={{projectData.Name}}>
+                                <option ng-repeat="userProject in userLeadProjects" value="{{userProject.Id}}">
+                                    {{userProject.Name}}
+                                </option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="issuePriority" class="col-lg-4 control-label">Priority</label>
+
+                    <div class="col-lg-8">
+                        <select id="issuePriority"
+                                class="form-control"
+                                ng-model="issueData.PriorityId" required>
+                            <option ng-repeat="priority in projectPriorities" value="{{priority.Id}}">
+                                {{priority.Name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="issueDueDate" class="col-lg-4 control-label">Due Date</label>
+
+                    <div class="col-lg-8">
+                        <input type="date"
+                               class="form-control"
+                               id="issueDueDate"
+                               ng-model="issueData.DueDate" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="issueLabels" class="col-lg-4 control-label">Labels</label>
+
+                    <div class="col-lg-8">
+                        <input type="text"
+                               class="form-control"
+                               id="issueLabels"
+
+                               ng-model="issueData.Labels" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="issueDescription" class="col-lg-4 control-label">Description</label>
+
+                    <div class="col-lg-8">
+                        <textarea class="form-control"
+                                  id="issueDescription"
+                                  placeholder="Description"
+                                  ng-model="issueData.Description"
+                                  required>
+                        </textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-8 col-lg-offset-4">
+                        <button type="submit"
+                                class="btn btn-success"
+                                ng-click="addIssue(issueData)">Add Issue
+                        </button>
+                        <a href="#/dashboard" class="btn btn-default">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>

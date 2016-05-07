@@ -1,3 +1,11 @@
+<div  ng-if="issueData.Assignee.Username === authentication.getUserName().Username||
+     issueData.projectLeaderName === authentication.getUserName().Username||
+     authentication.isAdmin()" >
+   <div class="info col-md-offset-1" >
+    <a href="#/issue/{{issueData.Id}}/edit" class="btn btn-success btn-sm" id="editIssueDataButton">Edit
+        issueData</a>
+</div><br>
+
 <div class="col-xs-6">
 
     <div class="table-responsive" style="max-height:300px"  >
@@ -66,15 +74,10 @@
     </div>
 </div>
 
-<div ng-if="issueData.projectLeaderName === authentication.getUserName().Username||
-    authentication.isAdmin()"
-     class="info">
-    <a href="#issueDatas/{{issueData.Id}}/edit" class="btn btn-success btn-sm" id="editIssueDataButton">Edit
-        issueData</a>
-</div>
 
 
-<div class="col-lg-9 col-lg-offset-1"
+
+<div class="col-lg-3 "
      ng-if="issueData.Assignee.Username === authentication.getUserName().Username||
      issueData.projectLeaderName === authentication.getUserName().Username||
      authentication.isAdmin()">
@@ -91,25 +94,26 @@
     </table>
 </div>
 
-<div  style="overflow: scroll; color: white; max-height:200px " class="col-lg-5 col-lg-offset-1">
+
+<div  style="overflow: scroll; color: white; max-height:200px " class="col-lg-9 col-lg-offset-0">
     <h2>Comments:</h2>
 
     <div ng-repeat="comment in  issueDataComment">
         <h3 >{{comment.Author.Username}}</h3>
         <span>{{comment.CreatedOn| date:'dd-MM-yyyy'}}:</span>
 
-
         <div>{{comment.Text}}</div>
 
     </div>
 </div>
 
-<div class="col-lg-4 col-lg-offset-1"
+
+<div class="col-lg-4 col-lg-offset-3"
      ng-if="issueData.Assignee.Username === authentication.getUserName().Username||
      issueData.projectLeaderName === authentication.getUserName().Username||
      authentication.isAdmin()">
     <form class="form-horizontal" name="add-comment-form" id="add-comment-form">
-        <div class="form-group">
+        <div class="form-group"><br>
             <div>
                 <textarea class="form-control"
                           id="issueDataComment"
@@ -129,4 +133,4 @@
 
 </div>
 
-
+</div>

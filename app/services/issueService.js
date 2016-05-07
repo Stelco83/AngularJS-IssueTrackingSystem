@@ -123,6 +123,16 @@ angular.module('ITS.user.issueService', ['ngRoute'])
                     };
 
                     $http(request).success(success).error(error);
+                },
+
+                //need for adding issues
+                getAllUsers: function (success, error) {
+                    var response = {
+                        method: 'GET',
+                        url: BASE_URL + 'users',
+                        headers: authentication.getAuthHeaders()
+                    };
+                    $http(response).success(success).error(error);
                 }
 
 
