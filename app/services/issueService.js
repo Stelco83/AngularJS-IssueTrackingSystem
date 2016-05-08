@@ -8,7 +8,7 @@ angular.module('ITS.user.issueService', ['ngRoute'])
         function ($http, BASE_URL, authentication) {
 
             return {
-                getUsersIssues: function (params, success, error) {
+                getUsersIssues: function (params,success, error) {
                     var request = {
                         method: 'GET',
                         url: BASE_URL + 'issues/me?orderBy=Project.Name desc,IssueKey&pageSize=' + params.pageSize + '&pageNumber=' + params.startPage,
@@ -19,7 +19,7 @@ angular.module('ITS.user.issueService', ['ngRoute'])
                 },
 
 
-                getIssuesByProjectId: function (id, success, error) {
+                getIssuesByProjectId: function (id ,success, error) {
                     if (id) {
                         var request = {
                             method: 'GET',
@@ -30,7 +30,7 @@ angular.module('ITS.user.issueService', ['ngRoute'])
                     }
                 },
 
-                getIssuesByProjectIdPage: function (params, id, success, error) {
+                getIssuesByProjectIdPaging: function (params, id, success, error) {
                     if (id) {
                         var request = {
                             method: 'GET',
@@ -40,6 +40,18 @@ angular.module('ITS.user.issueService', ['ngRoute'])
                         $http(request).success(success).error(error);
                     }
                 },
+
+                getIssuesByProjectAll: function ( id, success, error) {
+                    if (id) {
+                        var request = {
+                            method: 'GET',
+                            url: BASE_URL + 'projects/' + id + '/issues',
+                            headers: authentication.getAuthHeaders()
+                        };
+                        $http(request).success(success).error(error);
+                    }
+                },
+
 
                 getIssueById: function (id, success, error) {
                     if (id) {
@@ -134,6 +146,10 @@ angular.module('ITS.user.issueService', ['ngRoute'])
                     };
                     $http(response).success(success).error(error);
                 }
+
+
+
+
 
 
             }

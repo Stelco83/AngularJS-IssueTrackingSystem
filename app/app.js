@@ -12,6 +12,7 @@ angular.module('ITS', [
     'ITS.version',
     'ITS.notifyService',
     'ngCookies',
+    'ITS.filter',
     'ui.bootstrap.pagination'
 
 ]).

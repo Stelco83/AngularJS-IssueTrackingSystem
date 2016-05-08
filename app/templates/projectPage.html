@@ -1,0 +1,98 @@
+<div class="col-lg-5">
+    <table class="table table-striped" id="projectsTable">
+        <thead>
+        <h3>Project info</h3>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tr class="info">
+            <th>Project Key</th>
+            <td>{{projectData.ProjectKey}}</td>
+        </tr>
+        <tr class="info">
+            <th>Project Name</th>
+            <td>{{projectData.Name}}</td>
+        </tr>
+        <tr class="info">
+            <th>Description</th>
+            <td>{{projectData.Description}}</td>
+        </tr>
+        <tr class="info">
+            <th>Leader</th>
+            <td>{{projectData.Lead.Username}}</td>
+        </tr>
+        <tr class="info">
+            <th>LeadId</th>
+            <td>{{projectData.Lead.Id}}</td>
+        </tr>
+        <tr class="info">
+            <th>Labels</th>
+            <td><span ng-repeat="label in projectData.Labels">{{label.Name}}; </span></td>
+        </tr>
+        <tr class="info">
+            <th>Priorities</th>
+            <td><span ng-repeat="priority in projectData.Priorities">{{priority.Name}}; </span></td>
+        </tr>
+    </table>
+
+    <div ng-if="projectData.Lead.Username === authentication.getUserName().userName||authentication.isAdmin()"
+         class="info">
+        <a href="#/projects/addIssue" class="btn btn-success btn-sm halfButtons">Add Issue</a>
+        <a href="#projects/{{projectData.Id}}/edit" class="btn btn-primary btn-sm halfButtons">Edit Project</a>
+    </div>
+</div>
+
+<div class="col-lg-7" ng-controller="issuesController">
+    <table class="table table-striped table-hover ">
+        <thead>
+        <h3>Issue info</h3>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Due Date</th>
+            <th>Assignee</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="info" ng-repeat=" issue in issues|filter : issue ">
+
+            <td>
+                <a href="#/issues/{{issue.Id}}" class="issueTitle">
+                    {{issue.Title}}
+                </a>
+            </td>
+
+            <td>{{issue.Description}}</td>
+
+            <td>{{issue.DueDate| date:'dd-MM-yyyy'}}</td>
+
+            <td> {{issue.Assignee.Username}} </td>
+
+
+        </tbody>
+    </table>
+
+    <pagination ng-if="totalIssues > projectParams.pageSize"
+                total-items="totalIssues" ng-model="projectParams.startPage"
+                items-per-page="projectParams.pageSize" ng-change="getIssuesByProject()"
+                max-size="9" boundary-links="true"
+                class="aligner">
+    </pagination>
+
+    <div class="col-lg-12">
+        <div id="filters">
+            <label>
+                <h3 >Search Assignee: </h3>
+                <input type="text" ng-model="issue.Assignee.Username">
+
+            </label><br/>
+            <label>
+                <h3>Search Title: </h3>
+                <input type="text" ng-model="issue.Title">
+            </label>
+
+        </div>
+    </div>
+</div>

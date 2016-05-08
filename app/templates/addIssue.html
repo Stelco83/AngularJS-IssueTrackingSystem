@@ -39,9 +39,10 @@
                                 ng-change="newProjectSelected(issueData.ProjectId)"
                                 required>
                             <option ng-if="authentication.isAdmin()"
-                                    ng-repeat="project in allProjects" value="{{project.Id}}">
+                                    ng-repeat="project in projectsInfo" value="{{project.Id}}">
                                 {{project.Name}}
                             </option>
+
                             <optgroup ng-if="!authentication.isAdmin()" label={{projectData.Name}}>
                                 <option ng-repeat="userProject in userLeadProjects" value="{{userProject.Id}}">
                                     {{userProject.Name}}

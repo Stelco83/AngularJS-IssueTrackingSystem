@@ -20,6 +20,11 @@ angular.module('ITS.issuesController',
             controller: 'projectController'
         });
 
+        $routeProvider.when('/projects/:id/addIssue', {
+            templateUrl: 'templates/addIssue.html',
+            controller: 'projectController'
+        });
+
         $routeProvider.when('/issue/:id/edit', {
             templateUrl: 'templates/editIssue.html',
             controller: 'issuesController'
@@ -29,21 +34,28 @@ angular.module('ITS.issuesController',
     .controller('issuesController',
     ['$scope', 'authentication',
         '$location', 'notifyService', 'issueService', 'pageSize', '$routeParams',
+        'projectService',
+        function ($scope, authentication, $location, notifyService, issueService, pageSize, $routeParams, projectService) {
 
-        function ($scope, authentication, $location, notifyService, issueService, pageSize, $routeParams) {
-
-            $scope.projectParams = {
+            $scope.issueParams = {
                 'startPage': 1,
                 'pageSize': pageSize
 
             };
 
+
+            $scope.hideIssues = function () {
+                $('.info').hide();
+                $('#hiddenButton').hide();
+            };
+
+
             $scope.getUserIssues = function () {
-                issueService.getUsersIssues($scope.projectParams,
+                issueService.getUsersIssues($scope.issueParams,
                     function success(data) {
                         $scope.userIssues = data.Issues;
-                        $scope.allIssues = data.TotalPages * $scope.projectParams.pageSize;
-
+                        $scope.allIssues = data.TotalPages * $scope.issueParams.pageSize;
+                        $('#hiddenButton').show();
                     },
                     function error(err) {
                         notifyService.showError("Issues loading failed", err);
@@ -51,17 +63,17 @@ angular.module('ITS.issuesController',
                 );
             };
 
+
+
             //need for adding new issue + hardcoded users too much users in database!?
-            issueService.getAllUsers(
-                function success(data) {
-                    $scope.allUsers = [
-                        {"Id": "00040d32-9769-4c9a-909f-5d0773e77ee5", "Username": "gosho.vitkov1@gmail.com", "isAdmin": true}
-                    ];
-                },
-                function error(err) {
-                    notifyService.showError("Users loading failed", err);
-                }
-            );
+//            issueService.getAllUsers(
+//                function success(data) {
+//                    $scope.allUsers = data;
+//                },
+//                function error(err) {
+//                    notifyService.showError("Users loading failed", err);
+//                }
+//            );
 
             issueService.getIssueById($routeParams.id,
                 function success(data) {
@@ -108,10 +120,6 @@ angular.module('ITS.issuesController',
                     }
                 );
 
-
-                $scope.hideIssues = function () {
-                    $(".info").hide();
-                }
 
             }
         }]);

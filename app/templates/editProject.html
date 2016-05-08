@@ -1,0 +1,79 @@
+<div class="col-lg-8"
+     ng-if="authentication.isAdmin()||
+     projectData.Lead.Id === authentication.getUserName().Id">
+    <div class="well bs-component">
+        <form class="form-horizontal" name="change-password" id="edit-project-form">
+            <legend>Edit Project</legend>
+            <div class="form-group">
+                <label for="editProjectName" class="col-lg-4 control-label">Project Name</label>
+                <div class="col-lg-8">
+                    <input type="text"
+                           class="form-control"
+                           id="editProjectName"
+                           placeholder="{{projectData.Name}}"
+                           ng-model="editProjectData.Name" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="editProjectLeader" class="col-lg-4 control-label">Leader</label>
+                <div class="col-lg-8">
+                    <select id="editProjectLeader"
+                            class="form-control"
+                            ng-model="editProjectData.LeadId" required>
+                        <option ng-if="authentication.isAdmin()"
+                                ng-repeat="user in allUsers" value="{{user.Id}}">
+                            {{user.Username}}
+                        </option>
+                        <option ng-if="!authentication.isAdmin()"
+                                value="{{projectData.Lead.Id}}">
+                            {{projectData.Lead.Username}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-4 control-label">Project Key</label>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="editProjectPriorities" class="col-lg-4 control-label">Priorities (comma separated)</label>
+                <div class="col-lg-8">
+                    <input type="text"
+                           class="form-control"
+                           id="editProjectPriorities"
+                           ng-model="editProjectData.Priorities">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="editProjectLabels" class="col-lg-4 control-label">Labels (comma separated)</label>
+                <div class="col-lg-8">
+                    <input type="text"
+                           class="form-control"
+                           id="editProjectLabels"
+                           ng-model="editProjectData.Labels">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="editProjectDescription" class="col-lg-4 control-label">Description</label>
+                <div class="col-lg-8">
+                    <textarea class="form-control"
+                              id="editProjectDescription"
+                              placeholder="{{projectData.Description}}"
+                              ng-model="editProjectData.Description" required>
+                    </textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-8 col-lg-offset-4">
+                    <button type="submit"
+                            class="btn btn-success changePass"
+                            ng-click="editProject(editProjectData)">Edit Project
+                    </button>
+                    <a href="#/dashboard" class="btn btn-default">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
