@@ -210,25 +210,25 @@ angular.module('ITS.projectController',
             };
 
 
-            $scope.addProject = function (editProjectData) {
+            $scope.addProject = function (projectData, projectKey) {
                 var labelsList = [];
                 var prioritiesList = [];
 
-                var stringLabels = editProjectData.Labels.split(', ');
+                var stringLabels = projectData.Labels.split(', ');
                 stringLabels.forEach(function (element) {
                     labelsList.push({Name: element.trim()})
                 });
 
-                var stringPriorities = editProjectData.Priorities.split(', ');
+                var stringPriorities = projectData.Priorities.split(', ');
                 stringPriorities.forEach(function (element) {
                     prioritiesList.push({Name: element.trim()})
                 });
 
-                editProjectData.Priorities = prioritiesList;
-                editProjectData.Labels = labelsList;
-                editProjectData.Id = $scope.projectData.Id;
+                projectData.ProjectKey = projectKey;
+                projectData.Priorities = prioritiesList;
+                projectData.Labels = labelsList;
 
-                projectService.addNewProject(editProjectData,
+                projectService.addNewProject(projectData,
                     function success() {
                         notifyService.showInfo("Project added successfully");
                         $location.path("/projects/");
