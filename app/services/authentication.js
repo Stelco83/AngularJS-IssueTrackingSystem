@@ -83,11 +83,9 @@ angular.module('ITS.user.authentication', ['ngRoute'])
                 $http.post(BASE_URL + 'api/Account/ChangePassword', userPassword)
                     .then(function (response) {
                         currentUser = response.data;
-
                         deferred.resolve(response.data);
                         notifyService.showInfo("Password changed successful.");
-                        $location.path('/dashboard')
-
+                        $location.path('/dashboard');
                     }, function (error) {
                         notifyService.showError("Invalid change", error);
                     });
@@ -95,6 +93,8 @@ angular.module('ITS.user.authentication', ['ngRoute'])
 
                 return deferred.promise;
             }
+
+
 
             function logout() {
                 $cookies.remove(AUTHENTICATION_COOKIE_KEY);

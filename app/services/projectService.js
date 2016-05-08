@@ -9,7 +9,7 @@ angular.module('ITS.user.projectService', ['ngRoute'])
 
             return {
 
-                getAllProjectsPaging: function (params,success, error) {
+                getAllProjectsPaging: function (params, success, error) {
                     var request = {
                         method: 'GET',
                         url: BASE_URL + 'projects?pageSize=' + params.pageSize + '&pageNumber=' + params.startPage + '&filter=',
@@ -42,7 +42,6 @@ angular.module('ITS.user.projectService', ['ngRoute'])
 
                     }
                 },
-
 
 
                 getLabels: function (success, error) {
@@ -86,6 +85,20 @@ angular.module('ITS.user.projectService', ['ngRoute'])
                     };
 
                     $http(request).success(success).error(error);
+                },
+
+                makeAdmin: function (id, success, error) {
+                    var request = {
+                        method: 'PUT',
+                        url: BASE_URL + 'users/makeadmin',
+                        data: id,
+                        headers: authentication.getAuthHeaders()
+                    };
+
+                    $http(request).success(function (data) {
+                        success(data);
+
+                    }).error(error);
                 }
 
 

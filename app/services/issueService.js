@@ -103,11 +103,11 @@ angular.module('ITS.user.issueService', ['ngRoute'])
                 },
 
 
-                addCommentToIssue: function (issueId, comment, success, error) {
-                    if (issueId && comment) {
+                addCommentToIssue: function (Id, comment, success, error) {
+                     {
                         var request = {
                             method: 'POST',
-                            url: BASE_URL + 'issues/' + issueId + '/comments',
+                            url: BASE_URL + 'issues/' + Id + '/comments',
                             headers: authentication.getAuthHeaders(),
                             data: comment
                         };

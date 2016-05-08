@@ -34,8 +34,8 @@ angular.module('ITS.issuesController',
     .controller('issuesController',
     ['$scope', 'authentication',
         '$location', 'notifyService', 'issueService', 'pageSize', '$routeParams',
-        'projectService',
-        function ($scope, authentication, $location, notifyService, issueService, pageSize, $routeParams, projectService) {
+
+        function ($scope, authentication, $location, notifyService, issueService, pageSize, $routeParams ) {
 
             $scope.issueParams = {
                 'startPage': 1,
@@ -48,6 +48,7 @@ angular.module('ITS.issuesController',
                 $('.info').hide();
                 $('#hiddenButton').hide();
             };
+
 
 
             $scope.getUserIssues = function () {
@@ -64,16 +65,27 @@ angular.module('ITS.issuesController',
             };
 
 
+            $scope.addComment = function (issueId, comment) {
+                issueService.addCommentToIssue(issueId, comment,
+                    function success(data) {
 
-            //need for adding new issue + hardcoded users too much users in database!?
-//            issueService.getAllUsers(
-//                function success(data) {
-//                    $scope.allUsers = data;
-//                },
-//                function error(err) {
-//                    notifyService.showError("Users loading failed", err);
-//                }
-//            );
+                        notifyService.showInfo("Comment added successfully");
+                        $scope.$broadcast("totalCommentsChanged", data);
+                    },
+                    function error(err) {
+                        notifyService.showError("Comment posting failed", err);
+                    }
+                );
+            };
+
+            $scope.$on("totalCommentsChanged", function (event, allComments) {
+                $scope.issueComments = allComments;
+                document.getElementById("issueComment").value = "";
+
+                $scope.getIssueComments();
+            });
+
+            $scope.getUserIssues();
 
             issueService.getIssueById($routeParams.id,
                 function success(data) {
@@ -84,6 +96,32 @@ angular.module('ITS.issuesController',
                     notifyService.showError("Issue loading failed", err);
                 }
             );
+
+            $scope.changeStatus = function (issueId, statusId, statusName) {
+                issueService.changeIssueStatus(issueId, statusId,
+                    function success(data) {
+                        $scope.issueData.AvailableStatuses = data;
+                        $scope.$broadcast("statusSelectionChanged", statusName);
+                    },
+                    function error(err) {
+                        notifyService.showError("Status change failed", err);
+                    }
+                );
+            };
+
+
+            $scope.getIssueComments = function () {
+                issueService.getCommentsById($routeParams.id,
+                    function success(data) {
+                        $scope.issueComments = data;
+                    },
+                    function error(err) {
+                        notifyService.showError("Issue Comments loading failed", err);
+                    }
+                );
+            };
+
+            $scope.getIssueComments();
 
 
             issueService.getCommentsById($routeParams.id,
@@ -119,6 +157,17 @@ angular.module('ITS.issuesController',
                         notifyService.showError("Issue edit failed", err);
                     }
                 );
+
+
+
+                $scope.$on("statusSelectionChanged", function (event, selectedStatus) {
+                    $scope.issueData.Status.Name = selectedStatus;
+
+                    $scope.getUserIssues();
+                });
+
+
+
 
 
             }
